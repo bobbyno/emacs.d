@@ -19,6 +19,7 @@
                       elisp-slime-nav
                       elpy
                       enh-ruby-mode
+                      ess
                       idle-highlight-mode
                       ido-ubiquitous
                       jinja2-mode
@@ -38,5 +39,7 @@
 ;; manually installed packages
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "ws-trim-1.4")
+
+(require 'ess-site)
 
 (provide 'packages)

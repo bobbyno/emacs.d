@@ -169,13 +169,17 @@ comment as a filename."
 ;; No scratch message
 (setq initial-scratch-message nil)
 
-;; turn off auto fill in every way imaginable
+;; aggressively disable auto-fill
 (setq auto-fill-mode -1)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
-;; call set-fill-column in a buffer interactively
-;; when you actually need it.
 (setq-default fill-column 99999)
 (setq fill-column 99999)
+
+;; turn back on auto-fill discretely
+(defun set-auto-fill ()
+  (interactive)
+  (setq fill-column 120)
+  (setq auto-fill-mode 1))
 
 ;; find file in project
 (require 'find-file-in-project)
@@ -365,20 +369,19 @@ comment as a filename."
         (while (> count 0)
           (newline)         ;; because there is no newline in 'line'
           (insert line)
-          (setq count (1- count)))
-        )
+          (setq count (1- count))))
 
       ;; create the undo information
-      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list)))
-    ) ; end-of-let
+      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list))))
 
   ;; put the point in the lowest line and return
   (next-line arg))
 
-(global-set-key (kbd "M-d") 'duplicate-line)
+(global-set-key (kbd "C-c C-d") 'duplicate-line)
+(global-set-key (kbd "M-h g") 'goto-line)
 
-(define-key key-translation-map (kbd "M-8") (kbd "•"))
 (define-key key-translation-map (kbd "M-p i") (kbd "π"))
+(define-key key-translation-map (kbd "M-8") (kbd "•"))
 
 (defun save-all ()
   (interactive)

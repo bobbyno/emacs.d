@@ -59,6 +59,10 @@
             (autopair-mode 0)
             (rainbow-delimiters-mode 1)))
 
+(setq cider-auto-select-error-buffer nil)
+(setq cider-show-error-buffer nil)
+(setq cider-repl-use-clojure-font-lock t)
+
 (defun require-repl-friends ()
     (interactive)
     (nrepl-sync-request:eval
@@ -190,8 +194,7 @@
   ;; need a binding that works in the terminal
   '(progn
      (define-key paredit-mode-map (kbd "M-)") 'paredit-forward-slurp-sexp)
-     (define-key paredit-mode-map (kbd "M-(") 'paredit-backward-slurp-sexp)
-     (define-key paredit-mode-map (kbd "M-d") 'duplicate-line)))
+     (define-key paredit-mode-map (kbd "M-(") 'paredit-backward-slurp-sexp)))
 
 (dolist (mode '(scheme emacs-lisp lisp clojure clojurescript))
   (when (> (display-color-cells) 8)
