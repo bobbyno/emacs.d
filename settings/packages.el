@@ -20,6 +20,7 @@
                       elpy
                       enh-ruby-mode
                       ess
+                      haml-mode
                       idle-highlight-mode
                       ido-ubiquitous
                       jinja2-mode
@@ -28,6 +29,7 @@
                       paredit
                       rainbow-delimiters
                       robe
+                      sass-mode
                       smex
                       yaml-mode
                       zenburn-theme))
