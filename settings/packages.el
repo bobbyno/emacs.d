@@ -1,9 +1,9 @@
 (require 'package)
 
-(setq package-archives '(("elpy" . "http://jorgenschaefer.github.io/packages/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")))
+(setq package-archives '(("elpy" . "https://jorgenschaefer.github.io/packages/")
+                         ("gnu" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.milkbox.net/packages/")
+                         ("melpa-stable" . "https://melpa-stable.milkbox.net/packages/")))
 
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(clojure-mode . "melpa-stable") t)
