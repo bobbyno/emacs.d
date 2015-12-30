@@ -9,6 +9,30 @@
 
 (global-set-key (kbd "<f9>") 'clojure)
 
+(defun make-or-find-repl ()
+  (if (not (buffer-exists? "*cider-repl"))
+      (cider-jack-in)
+    (progn
+      (select-window (get-lru-window))
+      (switch-to-buffer (cider-current-repl-buffer)))))
+
+(defun repl-right ()
+  (interactive)
+  (split-window-right -50)
+  (make-or-find-repl))
+
+(global-set-key (kbd "M-h M-r") 'repl-right)
+
+(defun repl-bottom ()
+  (interactive)
+  (split-window-below -15)
+  (make-or-find-repl))
+
+(global-set-key (kbd "M-h M-b") 'repl-bottom)
+
+(global-set-key (kbd "M-e") 'forward-sexp)
+(global-set-key (kbd "M-a") 'backward-sexp)
+
 ;; customize indentation for midje facts
 (require 'clojure-mode)
 (define-clojure-indent
@@ -40,7 +64,7 @@
 (eval-after-load 'clojure-mode (lambda () (pretty-lambdas 'clojure-mode)))
 (eval-after-load 'clojurescript-mode (lambda () (pretty-lambdas 'clojurescript-mode)))
 
-;; add line numbers
+
 (add-hook 'clojure-mode-hook 'linum-mode)
 
 (add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
@@ -63,47 +87,24 @@
 (setq cider-show-error-buffer nil)
 (setq cider-repl-use-clojure-font-lock t)
 
-(defun require-repl-friends ()
-    (interactive)
-    (nrepl-sync-request:eval
-      "(clojure.core/apply clojure.core/require
-     '[[clojure.repl :refer :all]
-       [clojure.pprint :refer :all]
-       [clojure.java.javadoc :refer (javadoc)]])"))
+(defun cider-eval-expression-at-point-in-repl ()
+  "Evaluate current form from clojure buffer in repl."
+  (interactive)
+  (cider-interactive-eval (cider-defun-at-point)))
 
-(defun custom-cider-repl-set-ns (ns)
-    "Switch the namespace of the REPL buffer to NS."
-    (interactive (list (cider-current-ns)))
-    (if ns
-        (with-current-buffer (cider-current-repl-buffer)
-          (cider-eval (format "(in-ns '%s)" ns)
-                             (cider-repl-handler (current-buffer)))
-          (require-repl-friends))
-      (error "Sorry, I don't know what the current namespace is.")))
+(global-set-key (kbd "M-h e") 'cider-eval-expression-at-point-in-repl)
+
+(defun set-ns-with-repl-requires ()
+  "Include repl-requires in non-user namespaces."
+  (interactive)
+  (cider-repl-set-ns (cider-current-ns))
+  (cider-interactive-eval "(apply require clojure.main/repl-requires)"))
 
 (add-hook 'nrepl-connected-hook
           (lambda ()
-            (dolist (ns '("user" "clojure.core"))
-              (nrepl-sync-request:eval (format "(in-ns '%s)" ns))
-              (require-repl-friends))
-            ;; Also require repl friends when changing namespaces.
-            (define-key cider-mode-map (kbd "C-c M-n") 'custom-cider-repl-set-ns)))
+            ;; Override the default cider-repl-set-ns key binding
+            (define-key cider-mode-map (kbd "C-c M-n") 'set-ns-with-repl-requires)))
 
-;; eval in repl
-(defun cider-eval-expression-at-point-in-repl ()
-  (interactive)
-  (let ((form (cider-defun-at-point)))
-    ;; Strip excess whitespace
-    (while (string-match "\\`\s+\\|\n+\\'" form)
-      (setq form (replace-match "" t t form)))
-    (set-buffer (cider-current-repl-buffer))
-    (goto-char (point-max))
-    (insert form)
-    (cider-repl-return)))
-
-(global-set-key (kbd "M-e") 'cider-eval-expression-at-point-in-repl)
-
-;; clj-scratch buffer
 (defun clj-scratch ()
   "Create/retrieve a Clojure scratch buffer and switch to it.."
   (interactive)
@@ -113,6 +114,7 @@
       (cider-jack-in)))
 
 (global-set-key (kbd "M-h c") 'clj-scratch)
+
 
 ;; starter-kit-lisp functions
 ;; Copyright (c) 2008-2010 Phil Hagelberg and contributors
@@ -204,4 +206,3 @@
             'paredit-mode))
 
 (provide 'clojure-settings)
-
