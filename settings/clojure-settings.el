@@ -87,10 +87,17 @@
 (setq cider-show-error-buffer nil)
 (setq cider-repl-use-clojure-font-lock t)
 
+;; eval in repl
 (defun cider-eval-expression-at-point-in-repl ()
-  "Evaluate current form from clojure buffer in repl."
   (interactive)
-  (cider-interactive-eval (cider-defun-at-point)))
+  (let ((form (cider-defun-at-point)))
+    ;; Strip excess whitespace
+    (while (string-match "\\`\s+\\|\n+\\'" form)
+      (setq form (replace-match "" t t form)))
+    (set-buffer (cider-current-repl-buffer))
+    (goto-char (point-max))
+    (insert form)
+    (cider-repl-return)))
 
 (global-set-key (kbd "M-h e") 'cider-eval-expression-at-point-in-repl)
 
