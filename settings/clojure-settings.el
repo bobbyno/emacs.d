@@ -30,9 +30,6 @@
 
 (global-set-key (kbd "M-h M-b") 'repl-bottom)
 
-(global-set-key (kbd "M-e") 'forward-sexp)
-(global-set-key (kbd "M-a") 'backward-sexp)
-
 ;; customize indentation for midje facts
 (require 'clojure-mode)
 (define-clojure-indent
@@ -198,12 +195,6 @@
      (:foreground "grey55")))
   "Face used to dim parentheses."
   :group 'starter-kit-faces)
-
-(eval-after-load 'paredit
-  ;; need a binding that works in the terminal
-  '(progn
-     (define-key paredit-mode-map (kbd "M-)") 'paredit-forward-slurp-sexp)
-     (define-key paredit-mode-map (kbd "M-(") 'paredit-backward-slurp-sexp)))
 
 (dolist (mode '(scheme emacs-lisp lisp clojure clojurescript))
   (when (> (display-color-cells) 8)
