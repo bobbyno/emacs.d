@@ -389,4 +389,19 @@ comment as a filename."
 
 (add-hook 'focus-out-hook 'save-all)
 
+;; Copy from an OS X window, then paste to Emacs with C-y.
+(defun paste-from-osx ()
+  (shell-command-to-string "pbpaste"))
+
+(setq interprogram-paste-function 'paste-from-osx)
+
+;; Copy from emacs with C-k, M-w, or C-w, then paste in an OS X window.
+(defun copy-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'copy-to-osx)
+
 (provide 'general-settings)
