@@ -64,22 +64,23 @@
 
 (add-hook 'clojure-mode-hook 'linum-mode)
 
-(add-hook 'cider-interaction-mode-hook 'cider-turn-on-eldoc-mode)
+(add-hook 'cider-interaction-mode-hook 'eldoc-mode)
 
 (add-hook 'cider-mode-hook (lambda ()
-                             (cider-turn-on-eldoc-mode)
+                             (eldoc-mode)
                              (paredit-mode +1)
                              (autopair-mode 0)))
 
 (require 'no-bold-fonts)
 (add-hook 'cider-repl-mode-hook
           (lambda ()
-            (cider-turn-on-eldoc-mode)
+            (eldoc-mode)
             (disable-bold-fonts)
             (paredit-mode 1)
             (autopair-mode 0)
             (rainbow-delimiters-mode 1)))
 
+(setq cider-repl-display-help-banner nil)
 (setq cider-auto-select-error-buffer nil)
 (setq cider-show-error-buffer nil)
 (setq cider-repl-use-clojure-font-lock t)
