@@ -10,6 +10,7 @@
   (require 'python-settings)
   (require 'python-flake8))
 (require 'ruby-settings)
+(require 'r-settings)
 (require 'tmux-settings)
 (require 'neotree-settings)
 (require 'persian-settings)
