@@ -202,4 +202,4 @@
   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
             'paredit-mode))
 
-(provide 'clojure-settings)
+(provide 'clojure)

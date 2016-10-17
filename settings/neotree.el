@@ -15,4 +15,4 @@
 
 (global-set-key (kbd "M-t") 'neotree-toggle)
 
-(provide 'neotree-settings)
+(provide 'neotree)

@@ -9,4 +9,4 @@
 
 (global-set-key (kbd "M-h p") 'persian)
 
-(provide 'persian-settings)
+(provide 'persian)

@@ -15,4 +15,4 @@
 
 (add-hook 'term-setup-hook 'tmux-term-setup-hook)
 
-(provide 'tmux-settings)
+(provide 'tmux)

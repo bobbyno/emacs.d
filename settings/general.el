@@ -400,4 +400,4 @@ comment as a filename."
 
 (setq interprogram-cut-function 'copy-to-osx)
 
-(provide 'general-settings)
+(provide 'general)

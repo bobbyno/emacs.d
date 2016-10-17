@@ -2,4 +2,4 @@
           (lambda ()
             (ess-toggle-underscore nil)))
 
-(provide 'r-settings)
+(provide 'r)

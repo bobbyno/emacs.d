@@ -123,4 +123,4 @@
 
 (global-set-key (kbd "M-h s") 'create-scratch-buffer)
 
-(provide 'window-settings)
+(provide 'window)
