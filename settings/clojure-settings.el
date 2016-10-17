@@ -68,8 +68,7 @@
 
 (add-hook 'cider-mode-hook (lambda ()
                              (eldoc-mode)
-                             (paredit-mode +1)
-                             (autopair-mode 0)))
+                             (paredit-mode +1)))
 
 (require 'no-bold-fonts)
 (add-hook 'cider-repl-mode-hook
@@ -77,7 +76,6 @@
             (eldoc-mode)
             (disable-bold-fonts)
             (paredit-mode 1)
-            (autopair-mode 0)
             (rainbow-delimiters-mode 1)))
 
 (setq cider-repl-display-help-banner nil)

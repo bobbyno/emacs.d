@@ -12,8 +12,7 @@
 
 (package-initialize)
 
-(defvar my-packages '(autopair
-                      cider
+(defvar my-packages '(cider
                       clojure-mode
                       dockerfile-mode
                       elisp-slime-nav
@@ -23,7 +22,7 @@
                       haml-mode
                       idle-highlight-mode
                       ido-ubiquitous
-                      jinja2-mode
+                      js2-mode
                       markdown-mode
                       neotree
                       paredit

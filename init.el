@@ -9,6 +9,7 @@
 (when (executable-find "ipython")
   (require 'python-settings)
   (require 'python-flake8))
+(require 'javascript)
 (require 'ruby-settings)
 (require 'r-settings)
 (require 'tmux-settings)

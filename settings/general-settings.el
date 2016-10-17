@@ -191,10 +191,6 @@ comment as a filename."
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 
-;; autopair (), "", {}, []
-(require 'autopair)
-(autopair-global-mode)
-
 ;; rename file and buffer
 (defun rename-file-and-buffer ()
   "Rename the current buffer and file it is visiting."
