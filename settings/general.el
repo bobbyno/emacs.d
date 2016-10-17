@@ -145,6 +145,8 @@ comment as a filename."
 
 ;; toggle line numbers
 (global-set-key (kbd "C-c l") 'linum-mode)
+;; enable by default in programming modes
+(add-hook 'prog-mode-hook 'linum-mode)
 
 ;; add a space for some margin in terminal mode
 (setq linum-format "%d ")
