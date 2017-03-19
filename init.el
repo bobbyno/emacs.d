@@ -4,9 +4,10 @@
 
 (require 'packages)
 (require 'general)
+(require 'autocomplete)
 (require 'clojure)
 (require 'javascript)
-(require 'neotree)
+(require 'treeview)
 (require 'persian)
 (when (executable-find "ipython")
   (require 'python-settings)

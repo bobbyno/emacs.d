@@ -2,8 +2,9 @@
 
 (setq package-archives '(("elpy" . "https://jorgenschaefer.github.io/packages/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.milkbox.net/packages/")
-                         ("melpa-stable" . "https://melpa-stable.milkbox.net/packages/")))
+                         ("melpa" . "https://melpa.org/packages/")
+                         ;("melpa-stable" . "http://stable.melpa.org/packages/")
+                         ))
 
 (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
 (add-to-list 'package-pinned-packages '(clojure-mode . "melpa-stable") t)
@@ -14,6 +15,8 @@
 
 (defvar my-packages '(cider
                       clojure-mode
+                      company
+                      company-shell
                       dockerfile-mode
                       elisp-slime-nav
                       elpy

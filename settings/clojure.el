@@ -53,27 +53,31 @@
 (defun pretty-lambdas (mode)
   (font-lock-add-keywords
       mode `(("(\\(fn\\>\\)"
-                       (0 (progn (compose-region (match-beginning 1)
-                                                 (match-end 1)
-                                                 (make-char 'greek-iso8859-7 107))
-                                 'decompose-region))))))
+              (0 (progn (compose-region (match-beginning 1)
+                                        (match-end 1)
+                                        (make-char 'greek-iso8859-7 107))
+                        'decompose-region))))))
 
 (eval-after-load 'clojure-mode (lambda () (pretty-lambdas 'clojure-mode)))
 (eval-after-load 'clojurescript-mode (lambda () (pretty-lambdas 'clojurescript-mode)))
 
-
 (add-hook 'clojure-mode-hook 'linum-mode)
 
-(add-hook 'cider-interaction-mode-hook 'eldoc-mode)
+(add-hook 'cider-interaction-mode-hook
+          (lambda ()
+            (eldoc-mode)
+            (company-mode)))
 
-(add-hook 'cider-mode-hook (lambda ()
-                             (eldoc-mode)
-                             (paredit-mode +1)))
+(add-hook 'cider-mode-hook
+          (lambda ()
+            (eldoc-mode)
+            (paredit-mode +1)))
 
 (require 'no-bold-fonts)
 (add-hook 'cider-repl-mode-hook
           (lambda ()
             (eldoc-mode)
+            (company-mode)
             (disable-bold-fonts)
             (paredit-mode 1)
             (rainbow-delimiters-mode 1)))
@@ -162,6 +166,7 @@
 (add-hook 'prog-mode-hook 'esk-pretty-lambdas)
 (add-hook 'prog-mode-hook 'esk-add-watchwords)
 (add-hook 'prog-mode-hook 'idle-highlight-mode)
+(add-hook 'prog-mode-hook 'company-mode)
 
 (defun esk-prog-mode-hook ()
   (run-hooks 'prog-mode-hook))
@@ -186,19 +191,7 @@
 (define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
 (define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
 
-;; TODO: look into parenface package
-(defface esk-paren-face
-  '((((class color) (background dark))
-     (:foreground "grey50"))
-    (((class color) (background light))
-     (:foreground "grey55")))
-  "Face used to dim parentheses."
-  :group 'starter-kit-faces)
-
 (dolist (mode '(scheme emacs-lisp lisp clojure clojurescript))
-  (when (> (display-color-cells) 8)
-    (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
-                            '(("(\\|)" . 'esk-paren-face))))
   (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
             'paredit-mode))
 

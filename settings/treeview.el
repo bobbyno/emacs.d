@@ -13,6 +13,6 @@
 (set-face-foreground 'neo-dir-link-face "SlateGray2")
 (set-face-foreground 'neo-file-link-face "grey88")
 
-(global-set-key (kbd "M-t") 'neotree-toggle)
+(global-set-key (kbd "M-h t") 'neotree-toggle)
 
-(provide 'neotree)
+(provide 'treeview)
